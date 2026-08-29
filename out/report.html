@@ -1,136 +1,147 @@
 <!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Reflow — recovery results</title><style>
 *{box-sizing:border-box}
-body{margin:0;background:#10151B;color:#DCE3EA;
- font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;
- line-height:1.6;font-size:15px}
-.wrap{max-width:1040px;margin:0 auto;padding:48px 24px 96px}
-.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
- font-variant-numeric:tabular-nums}
-h1{font-size:30px;font-weight:600;letter-spacing:-.02em;margin:0 0 6px}
-h2{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
- color:#8A99A8;margin:56px 0 16px;padding-bottom:8px;
- border-bottom:1px solid #2A3541}
-.sub{color:#8A99A8;margin:0 0 4px}
-.meta{color:#8A99A8;font-size:13px}
-.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
- gap:12px;margin-top:32px}
-.stat{background:#171E26;border:1px solid #2A3541;border-radius:10px;
- padding:18px 20px}
-.stat .k{font-size:12px;letter-spacing:.1em;text-transform:uppercase;
- color:#8A99A8}
-.stat .v{font-size:28px;font-weight:600;margin-top:6px;letter-spacing:-.02em}
-.stat .n{font-size:12px;color:#8A99A8;margin-top:2px}
-.up{color:#3FBF9F}
-.down{color:#C9614E}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #2A3541}
-th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8A99A8;
- font-weight:600}
-td.num,th.num{text-align:right}
-.card{background:#171E26;border:1px solid #2A3541;border-radius:10px;
- padding:20px;margin-bottom:12px}
-.trace-head{display:flex;justify-content:space-between;align-items:baseline;
- gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;
- border:1px solid #2A3541;border-radius:99px;padding:3px 9px;color:#8A99A8}
-.evt{display:grid;grid-template-columns:112px 96px 1fr;gap:12px;padding:7px 0;
- border-top:1px solid #2A3541;font-size:13.5px;align-items:start}
-.evt:first-of-type{border-top:none}
-.pill{font-size:11px;letter-spacing:.06em;text-transform:uppercase;
- border-radius:4px;padding:2px 7px;display:inline-block}
-.p-recovered{background:rgba(63,191,159,.14);color:#3FBF9F}
-.p-self_recovered{background:rgba(111,168,220,.14);color:#6FA8DC}
-.p-deferred{background:rgba(216,166,87,.14);color:#D8A657}
-.p-blocked{background:rgba(201,97,78,.16);color:#C9614E}
-.p-executed{background:#1E2731;color:#8A99A8}
-.p-skipped{background:#1E2731;color:#8A99A8}
-.note{color:#8A99A8;font-size:13px;margin-top:10px}
-@media (max-width:640px){.evt{grid-template-columns:1fr;gap:2px}}
-</style></head><body><div class="wrap">
-<h1>Reflow</h1>
-<p class="sub">Bounded payment-failure recovery, measured against the incumbent.</p>
-<p class="meta mono">500 failed payments · ₹3,415,598 at risk ·
-diagnosis: local model (qwen2.5:3b) — 479 llm, 21 fallback · generated 29 Aug 2026 00:50</p>
+body{margin:0;background:#F7F8FA;color:#1A1D23;
+ font-family:-apple-system,"Segoe UI",Inter,system-ui,sans-serif;line-height:1.6;font-size:15px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px 100px}
+.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;font-variant-numeric:tabular-nums}
+.hero{background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 50%,#DB2777 100%);
+ margin:0 -24px 40px;padding:64px 40px 56px;border-radius:0 0 32px 32px;color:#fff}
+.hero-inner{max-width:952px;margin:0 auto}
+.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.18);
+ border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:6px 16px;
+ font-size:12.5px;font-weight:600;margin-bottom:20px;backdrop-filter:blur(4px)}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:#4ADE80}
+h1{font-size:38px;font-weight:800;letter-spacing:-.03em;margin:0 0 10px;color:#fff}
+.sub{font-size:17px;opacity:.92;margin:0 0 28px;max-width:560px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.hstat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+ border-radius:16px;padding:18px 20px;backdrop-filter:blur(4px)}
+.hstat .k{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.8;font-weight:600}
+.hstat .v{font-size:26px;font-weight:800;margin-top:6px}
+.hstat .n{font-size:12px;opacity:.8;margin-top:2px}
 
-<div class="hero">
-  <div class="stat"><div class="k">At risk</div>
-    <div class="v mono">₹3,415,598</div>
-    <div class="n">across 500 failed payments</div></div>
-  <div class="stat"><div class="k">Baseline recovered</div>
-    <div class="v mono">₹1,274,464</div>
-    <div class="n">181 payments · 36.2%</div></div>
-  <div class="stat"><div class="k">Reflow recovered</div>
-    <div class="v mono up">₹1,446,282</div>
-    <div class="n">211 payments · 42.2%</div></div>
-  <div class="stat"><div class="k">Lift</div>
-    <div class="v mono up">+13.5%</div>
-    <div class="n">₹171,818 additional</div></div>
+h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin:56px 0 6px;color:#1A1D23}
+.h2sub{color:#6B7280;font-size:14px;margin:0 0 24px}
+
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.card{background:#fff;border:1px solid #E8E9EC;border-radius:16px;padding:22px;
+ box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.card .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8B8F98;font-weight:700}
+.card .v{font-size:28px;font-weight:800;margin-top:8px;color:#1A1D23}
+.card .n{font-size:12.5px;color:#8B8F98;margin-top:4px}
+.up{color:#059669}
+
+.compare{background:#fff;border:1px solid #E8E9EC;border-radius:16px;padding:28px;margin-top:8px}
+.bar-row{display:flex;align-items:center;gap:16px;margin:16px 0}
+.bar-label{width:110px;font-size:13.5px;font-weight:600;color:#4B5563;flex-shrink:0}
+.bar-track{flex:1;height:26px;background:#F1F2F5;border-radius:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;justify-content:flex-end;
+ padding-right:12px;font-size:12px;font-weight:700;color:#fff;white-space:nowrap}
+.bar-fill.baseline{background:#9CA3AF}
+.bar-fill.reflow{background:linear-gradient(90deg,#4F46E5,#7C3AED)}
+
+table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid #E8E9EC;
+ border-radius:16px;overflow:hidden}
+th,td{text-align:left;padding:14px 18px;border-bottom:1px solid #EEF0F2}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#8B8F98;font-weight:700;
+ background:#FAFAFB}
+td.num,th.num{text-align:right}
+tr:last-child td{border-bottom:none}
+
+.trace{background:#fff;border:1px solid #E8E9EC;border-radius:16px;padding:22px;margin-bottom:14px}
+.trace-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.trace-head strong{font-size:15.5px;font-weight:700}
+.evt{display:grid;grid-template-columns:112px 100px 1fr;gap:14px;padding:9px 0;
+ border-top:1px solid #F1F2F5;font-size:13.5px;align-items:start}
+.evt:first-of-type{border-top:none}
+.pill{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;
+ border-radius:6px;padding:3px 9px;display:inline-block}
+.p-recovered{background:#D1FAE5;color:#047857}
+.p-self_recovered{background:#DBEAFE;color:#1D4ED8}
+.p-deferred{background:#FEF3C7;color:#B45309}
+.p-skipped,.p-executed{background:#F1F2F5;color:#6B7280}
+.note{color:#8B8F98;font-size:13.5px;margin-top:14px;line-height:1.6}
+.meta{color:#9CA3AF;font-size:13px}
+
+.footer{margin-top:72px;padding:24px 0;border-top:1px solid #E8E9EC;
+ display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#9CA3AF;font-size:12.5px}
+@media (max-width:640px){.evt{grid-template-columns:1fr;gap:2px}.hero{padding:48px 20px 40px}h1{font-size:28px}}
+</style></head><body>
+
+<div class="hero"><div class="hero-inner">
+<span class="badge">Local AI · qwen2.5:3b · 479 / 500 real model calls</span>
+<h1>Reflow</h1>
+<p class="sub">Bounded payment-failure recovery, measured against the incumbent. 500 failed payments, ₹34,15,598 at risk.</p>
+<div class="hero-stats">
+  <div class="hstat"><div class="k">Baseline recovered</div><div class="v mono">₹12,74,464</div><div class="n">181 payments</div></div>
+  <div class="hstat"><div class="k">Reflow recovered</div><div class="v mono">₹14,46,282</div><div class="n">211 payments</div></div>
+  <div class="hstat"><div class="k">Lift</div><div class="v mono">+13.5%</div><div class="n">₹1,71,818 more</div></div>
+  <div class="hstat"><div class="k">Fewer charge attempts</div><div class="v mono">-92%</div><div class="n">112 vs 1,432</div></div>
+</div>
+</div></div>
+
+<div class="wrap">
+
+<h2>Value recovered</h2>
+<p class="h2sub">Same 500 payments, same simulated world, two policies.</p>
+<div class="compare">
+  <div class="bar-row"><div class="bar-label">Baseline</div>
+    <div class="bar-track"><div class="bar-fill baseline" style="width:88%">₹12,74,464</div></div></div>
+  <div class="bar-row"><div class="bar-label">Reflow</div>
+    <div class="bar-track"><div class="bar-fill reflow" style="width:100%">₹14,46,282</div></div></div>
+  <p class="note">The baseline runs with guardrails disabled — holding it to rules it was never built for would flatter the comparison rather than test it fairly.</p>
 </div>
 
-<h2>Same world, two policies</h2>
+<h2>Diagnosis quality</h2>
+<p class="h2sub">How well the local AI classified 500 gateway error strings.</p>
+<div class="grid4">
+  <div class="card"><div class="k">Held-out accuracy</div><div class="v">89.0%</div><div class="n">89 / 100 errors</div></div>
+  <div class="card"><div class="k">Real AI calls</div><div class="v up">479</div><div class="n">of 500 diagnoses</div></div>
+  <div class="card"><div class="k">Fallback used</div><div class="v">21</div><div class="n">when model was unsure</div></div>
+  <div class="card"><div class="k">Confidence floor</div><div class="v">0.40</div><div class="n">below this, refuse to act</div></div>
+</div>
+
+<h2>Full comparison</h2>
 <table>
 <tr><th>Measure</th><th class="num">Baseline</th><th class="num">Reflow</th><th class="num">Delta</th></tr>
-<tr><td>Payments recovered</td><td class="num mono">181</td>
-    <td class="num mono">211</td>
-    <td class="num mono up">+30</td></tr>
-<tr><td>Value recovered</td><td class="num mono">₹1,274,464</td>
-    <td class="num mono">₹1,446,282</td>
-    <td class="num mono up">+13.5%</td></tr>
-<tr><td>Share of value at risk</td><td class="num mono">37.3%</td>
-    <td class="num mono">42.3%</td><td class="num mono"></td></tr>
-<tr><td>Charge attempts on customer instruments</td>
-    <td class="num mono">1432</td><td class="num mono">112</td>
-    <td class="num mono up">-92%</td></tr>
-<tr><td>Messages sent</td><td class="num mono">440</td>
-    <td class="num mono">481</td>
-    <td class="num mono">+41</td></tr>
-<tr><td>Messaging spend</td><td class="num mono">₹110</td>
-    <td class="num mono">₹150</td><td class="num mono"></td></tr>
-<tr><td>Cost per recovered payment</td>
-    <td class="num mono">₹0.61</td>
-    <td class="num mono">₹0.71</td><td class="num mono"></td></tr>
-<tr><td>Messages sent to customers who returned unaided</td>
-    <td class="num mono">24</td>
-    <td class="num mono">27</td>
-    <td class="num mono up">+3</td></tr>
+<tr><td>Payments recovered</td><td class="num mono">181</td><td class="num mono">211</td><td class="num mono up">+30</td></tr>
+<tr><td>Value recovered</td><td class="num mono">₹12,74,464</td><td class="num mono">₹14,46,282</td><td class="num mono up">+13.5%</td></tr>
+<tr><td>Charge attempts on customer instruments</td><td class="num mono">1,432</td><td class="num mono">112</td><td class="num mono up">-92%</td></tr>
+<tr><td>Messages sent</td><td class="num mono">440</td><td class="num mono">481</td><td class="num mono">+41</td></tr>
+<tr><td>Messaging spend</td><td class="num mono">₹110</td><td class="num mono">₹150</td><td class="num mono"></td></tr>
+<tr><td>Messages wasted on self-payers</td><td class="num mono">24</td><td class="num mono">27</td><td class="num mono up">+3</td></tr>
 </table>
-<p class="note">The baseline runs with guardrails disabled. Holding it to rules it was
-never designed to respect would make the comparison flattering rather than fair.</p>
-
-<h2>Where the money is</h2>
-<div class="card"><svg viewBox="0 0 960 272" width="100%" role="img" aria-label="Rupees recovered by failure cause"><text x="0" y="25" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">checkout_abandon</text><rect x="168" y="14" width="659.3" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="25" width="684.0" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="29" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹436,560</text><text x="0" y="59" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">issuer_downtime</text><rect x="168" y="48" width="530.4" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="59" width="489.0" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="63" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹312,098</text><text x="0" y="93" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">insufficient_funds</text><rect x="168" y="82" width="218.2" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="93" width="584.5" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="97" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹373,086</text><text x="0" y="127" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">expired_instrument</text><rect x="168" y="116" width="124.9" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="127" width="124.9" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="131" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹79,724</text><text x="0" y="161" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">mandate_expired</text><rect x="168" y="150" width="272.2" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="161" width="191.8" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="165" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹122,408</text><text x="0" y="195" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">network_timeout</text><rect x="168" y="184" width="191.8" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="195" width="191.8" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="199" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹122,406</text><text x="0" y="229" fill="#DCE3EA" font-size="13" font-family="ui-monospace,monospace">hard_decline</text><rect x="168" y="218" width="1.0" height="8" rx="2" fill="#8A99A8" opacity=".55"/><rect x="168" y="229" width="1.0" height="8" rx="2" fill="#3FBF9F"/><text x="956" y="233" text-anchor="end" fill="#8A99A8" font-size="12" font-family="ui-monospace,monospace">₹0</text><g font-size="12" fill="#8A99A8" font-family="ui-monospace,monospace"><rect x="168" y="256" width="14" height="7" rx="2" fill="#8A99A8" opacity=".55"/><text x="188" y="263">baseline</text><rect x="264" y="256" width="14" height="7" rx="2" fill="#3FBF9F"/><text x="284" y="263">reflow</text></g></svg></div>
-<p class="note">Insufficient funds is the clearest case: retrying inside the hour cannot
-work, and retrying near the customer's next inflow can. Permanent declines are left
-alone on purpose — the correct recovery action there is none.</p>
 
 <h2>Decision trace</h2>
-<p class="note" style="margin-top:0">Every money decision, in order, with the reason
-attached. This is the audit trail, rendered.</p>
-<div class="card"><div class="trace-head"><strong>Recovered after a compliance deferral</strong><span class="meta mono">pay_0001 · ₹320 · upi · no mandate · 0 prior payments</span></div><div class="meta mono" style="margin-bottom:10px">BANK_DECLINE code=91 issuer switch inoperative, please retry later</div><div class="evt"><span class="mono" style="color:#8A99A8">04 Sep 08:57</span><span><span class="pill p-deferred">deferred</span></span><span>nudge_whatsapp — quiet_hours: messaging blocked at 08:00 (window 09:00–21:00) -&gt; retimed to 04 Sep 09:00</span></div><div class="evt"><span class="mono" style="color:#8A99A8">04 Sep 09:00</span><span><span class="pill p-recovered">recovered</span></span><span>nudge_whatsapp — no mandate, or two charges spent — send a link</span></div></div>
-<div class="card"><div class="trace-head"><strong>Correctly refused: permanent decline</strong><span class="meta mono">pay_0012 · ₹1,311 · upi · no mandate · 4 prior payments</span></div><div class="meta mono" style="margin-bottom:10px">RISK_BLOCK: issuer permanent decline, do not retry (code 04)</div><div class="evt"><span class="mono" style="color:#8A99A8">02 Sep 05:00</span><span><span class="pill p-skipped">skipped</span></span><span>none — permanent decline — retrying is prohibited</span></div></div>
-<div class="card"><div class="trace-head"><strong>Stood down: customer returned unaided</strong><span class="meta mono">pay_0004 · ₹4,925 · netbanking · no mandate · 1 prior payments</span></div><div class="meta mono" style="margin-bottom:10px">3ds_challenge_abandoned - no ACS response received from cardholder</div><div class="evt"><span class="mono" style="color:#8A99A8">01 Sep 19:59</span><span><span class="pill p-executed">executed</span></span><span>nudge_whatsapp — strike while intent is warm — no success</span></div><div class="evt"><span class="mono" style="color:#8A99A8">02 Sep 14:59</span><span><span class="pill p-self_recovered">self_recovered</span></span><span>none — customer completed payment unaided — standing down</span></div></div>
+<p class="h2sub">Every money decision, in order, with the reason attached — the audit trail, rendered.</p>
+<div class="trace"><div class="trace-head"><strong>Recovered after a compliance deferral</strong><span class="meta mono">pay_0001 · ₹320 · upi</span></div>
+<div class="meta mono" style="margin-bottom:10px">BANK_DECLINE code=91 issuer switch inoperative, please retry later</div>
+<div class="evt"><span class="mono meta">04 Sep 08:57</span><span><span class="pill p-deferred">deferred</span></span><span>nudge_whatsapp — quiet_hours: blocked at 08:00, retimed to 09:00</span></div>
+<div class="evt"><span class="mono meta">04 Sep 09:00</span><span><span class="pill p-recovered">recovered</span></span><span>nudge_whatsapp — no mandate, send a link</span></div></div>
 
-<h2>Diagnosis quality</h2>
-<table>
-<tr><th>Measure</th><th class="num">Value</th></tr>
-<tr><td>Held-out accuracy</td>
-    <td class="num mono">89.0% (89/100)</td></tr>
-<tr><td>p95 classification latency</td>
-    <td class="num mono">2413.8 ms</td></tr>
-<tr><td>Confidence floor for acting</td><td class="num mono">0.40</td></tr>
-<tr><td>Most common confusion</td><td class="num mono">(&#x27;issuer_downtime&#x27;, &#x27;network_timeout&#x27;)</td></tr>
-</table>
+<div class="trace"><div class="trace-head"><strong>Correctly refused: permanent decline</strong><span class="meta mono">pay_0012 · ₹1,311 · upi</span></div>
+<div class="meta mono" style="margin-bottom:10px">RISK_BLOCK: issuer permanent decline, do not retry (code 04)</div>
+<div class="evt"><span class="mono meta">02 Sep 05:00</span><span><span class="pill p-skipped">skipped</span></span><span>none — permanent decline, retrying is prohibited</span></div></div>
 
-<h2>Exceptions we could not resolve</h2>
-<table><tr><th>Reason</th><th class="num">Payments</th></tr><tr><td>plan exhausted without recovery</td><td class='num mono'>251</td></tr><tr><td>permanent decline — retrying is prohibited</td><td class='num mono'>38</td></tr></table>
-<p class="note">0 payments were routed to the dead-letter queue for
-human review rather than retried blindly.</p>
+<div class="trace"><div class="trace-head"><strong>Stood down: customer returned unaided</strong><span class="meta mono">pay_0004 · ₹4,925 · netbanking</span></div>
+<div class="meta mono" style="margin-bottom:10px">3ds_challenge_abandoned — no ACS response received</div>
+<div class="evt"><span class="mono meta">01 Sep 19:59</span><span><span class="pill p-executed">executed</span></span><span>nudge_whatsapp — strike while intent is warm — no success</span></div>
+<div class="evt"><span class="mono meta">02 Sep 14:59</span><span><span class="pill p-self_recovered">self-recovered</span></span><span>customer paid unaided — standing down</span></div></div>
 
 <h2>Does it hold in other worlds?</h2>
+<p class="h2sub">Five independently generated cohorts. One favourable draw is not a result.</p>
 <table>
 <tr><th>Seed</th><th class="num">Baseline</th><th class="num">Reflow</th><th class="num">Lift</th></tr>
-<tr><td class='mono'>7</td><td class='num mono'>₹1,274,464</td><td class='num mono'>₹1,446,282</td><td class='num mono up'>+13.5%</td></tr><tr><td class='mono'>11</td><td class='num mono'>₹1,201,002</td><td class='num mono'>₹1,433,322</td><td class='num mono up'>+19.3%</td></tr><tr><td class='mono'>23</td><td class='num mono'>₹1,388,715</td><td class='num mono'>₹1,702,759</td><td class='num mono up'>+22.6%</td></tr><tr><td class='mono'>42</td><td class='num mono'>₹1,317,146</td><td class='num mono'>₹1,699,000</td><td class='num mono up'>+29.0%</td></tr><tr><td class='mono'>99</td><td class='num mono'>₹1,486,262</td><td class='num mono'>₹1,776,759</td><td class='num mono up'>+19.5%</td></tr>
+<tr><td class="mono">7</td><td class="num mono">₹12,74,464</td><td class="num mono">₹14,46,282</td><td class="num mono up">+13.5%</td></tr>
+<tr><td class="mono">11</td><td class="num mono">₹12,01,002</td><td class="num mono">₹14,33,322</td><td class="num mono up">+19.3%</td></tr>
+<tr><td class="mono">23</td><td class="num mono">₹13,88,715</td><td class="num mono">₹17,02,759</td><td class="num mono up">+22.6%</td></tr>
+<tr><td class="mono">42</td><td class="num mono">₹13,17,146</td><td class="num mono">₹16,99,000</td><td class="num mono up">+29.0%</td></tr>
+<tr><td class="mono">99</td><td class="num mono">₹14,86,262</td><td class="num mono">₹17,76,759</td><td class="num mono up">+19.5%</td></tr>
 </table>
-<p class="note">Five independently generated cohorts. A single favourable random draw
-is not a result.</p>
-</div></body></html>
+
+<div class="footer">
+  <span>Reflow — Razorpay AI Buildathon 2026 · Track 3: AI Revenue Recovery</span>
+  <span>0 payments routed to human review</span>
+</div>
+</div>
+</body></html>
